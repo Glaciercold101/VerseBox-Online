@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FFMpegVerseBox — Lightweight FFmpeg tools</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;background:#fafafa;color:#18181b}
+@media(prefers-color-scheme:dark){body{background:#09090b;color:#f4f4f5}}
+header{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid #e4e4e7;z-index:10}
+@media(prefers-color-scheme:dark){header{background:rgba(9,9,11,.7);border-color:#27272a}}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.head{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:grid;place-items:center;color:#fff;font-weight:700}
+h1{font-size:18px;margin:0;line-height:1}
+.sub{font-size:12px;color:#71717a;margin-top:2px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#18181b;color:#fff;text-decoration:none;font-size:14px;font-weight:500}
+@media(prefers-color-scheme:dark){.btn{background:#fff;color:#09090b}}
+.hero{text-align:center;padding:48px 20px 24px}
+.hero h2{font-size:32px;margin:0 0 8px;letter-spacing:-.02em}
+.hero p{margin:0;color:#71717a}
+.search{max-width:640px;margin:24px auto 0;position:relative}
+.search input{width:100%;height:48px;padding:0 16px 0 40px;border-radius:16px;border:1px solid #e4e4e7;background:#fff;font-size:15px;outline:none}
+@media(prefers-color-scheme:dark){.search input{background:#18181b;border-color:#27272a;color:#f4f4f5}}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.5}
+.grid{max-width:1100px;margin:32px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:transform .15s,box-shadow .15s}
+@media(prefers-color-scheme:dark){.card{background:#18181b;border-color:#27272a}}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.top{display:flex;gap:14px;align-items:center}
+.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;color:#fff;flex-shrink:0}
+.name{font-weight:600;font-size:17px;margin:0}
+.desc{font-size:14px;color:#71717a;margin:2px 0 0;line-height:1.4}
+.badge{font-size:12px;padding:2px 8px;border-radius:999px;background:#f4f4f5;color:#52525b;margin-left:auto}
+@media(prefers-color-scheme:dark){.badge{background:#27272a;color:#a1a1aa}}
+.dls{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.dls a{font-size:13px;padding:6px 10px;border-radius:10px;border:1px solid #e4e4e7;text-decoration:none;color:#18181b;background:#fafafa}
+@media(prefers-color-scheme:dark){.dls a{background:#09090b;border-color:#3f3f46;color:#e4e4e7}}
+.dls a:hover{background:#fff}
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:#71717a}
+footer{border-top:1px solid #e4e4e7;margin-top:60px;padding:24px 20px;color:#71717a;font-size:13px}
+@media(prefers-color-scheme:dark){footer{border-color:#27272a}}
+.note{background:#fef3c7;border:1px dashed #f59e0b;color:#92400e;padding:12px;border-radius:12px;margin:20px; font-size:13px}
+@media(prefers-color-scheme:dark){.note{background:#422006;border-color:#a16207;color:#fde68a}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <div class="brand">
+      <div class="logo">F</div>
+      <div>
+        <h1>FFMpegVerseBox</h1>
+        <div class="sub">Lightweight FFmpeg tools. Download, run, done.</div>
+      </div>
+    </div>
+    <a class="btn" href="https://github.com/yourname/FFMpegVerseBox" target="_blank">GitHub</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h2>Tools that just work</h2>
+  <p>No installers, no bloat. Portable FFmpeg apps for everyday tasks.</p>
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="search" placeholder="Search apps by name or description…">
+  </div>
+</div>
+
+<div id="grid" class="grid"></div>
+
+<footer class="wrap">
+  MIT License — free to use and modify. Host on GitHub Pages: push this file as index.html
+</footer>
+
+<script>
+// PASTE YOUR APPS HERE - generated from versebox-admin.html
+const APPS = [
+  {
+    name: "VerseBox Converter",
+    description: "Convert video/audio quickly using FFmpeg presets",
+    icon: "🔄",
+    color: "#7c3aed",
+    version: "v1.2.0",
+    downloads: [
+      { platform: "Download", url: "https://github.com/yourname/FFMpegVerseBox/releases" }
+    ]
+  },
+  {
+    name: "VerseBox Trimmer",
+    description: "Lossless trim and cut without re-encode",
+    icon: "✂️",
+    color: "#2563eb",
+    version: "v0.9.3",
+    downloads: [
+      { platform: "Download", url: "https://github.com/yourname/FFMpegVerseBox/releases" }
+    ]
+  },
+  {
+    name: "VerseBox Extractor",
+    description: "Extract audio, frames, subtitles in one click",
+    icon: "📦",
+    color: "#0d9488",
+    version: "v1.0.1",
+    downloads: [
+      { platform: "Download", url: "https://github.com/yourname/FFMpegVerseBox/releases" }
+    
+    ]
+  },
+  {
+    name: "VerseBox Compressor",
+    description: "Shrink videos for web with H.265/VP9",
+    icon: "🗜️",
+    color: "#ea580c",
+    version: "v1.1.4",
+    downloads: [
+      { platform: "Download", url: "https://github.com/yourname/FFMpegVerseBox/releases" }
+    ]
+  },
+{
+    name: "VerseBox Desktop Bible / Quran",
+    description: "Brilliant App. Displays versus of Bible / Quran on your desktop",
+    icon: "🗜️",
+    color: "#ea580c",
+    version: "v1.1.4",
+    downloads: [
+      { platform: "Download", url: "https://github.com/yourname/FFMpegVerseBox/releases" }
+    ]
+  }
+ 
+];
+
+const grid = document.getElementById('grid');
+const q = document.getElementById('q');
+
+function render(list){
+  grid.innerHTML = '';
+  if(!list.length){
+    grid.innerHTML = '<div class="empty">No apps found — try a different search</div>';
+    return;
+  }
+  list.forEach(app=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="top">
+        <div class="icon" style="background:${app.color}">${app.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="name">${app.name}</div>
+            <div class="badge">${app.version}</div>
+          </div>
+          <div class="desc">${app.description}</div>
+        </div>
+      </div>
+      <div class="dls">
+        ${app.downloads.map(d=>`<a href="${d.url}" target="_blank">${d.platform}</a>`).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filter(){
+  const term = q.value.toLowerCase().trim();
+  if(!term) return render(APPS);
+  render(APPS.filter(a => (a.name+' '+a.description).toLowerCase().includes(term)));
+}
+
+q.addEventListener('input', filter);
+render(APPS);
+</script>
+</body>
+</html>
