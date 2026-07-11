@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lovely Apps – I love them.</title>
+<meta name="description" content="No installers, no bloat. Portable Windows apps by Glaciercold101 — ClockBox, Folder Sync Mate, FCol, UNO Game, VerseBox, FlashCardBox.">
+<meta name="author" content="Christopher Azeem">
+<meta name="theme-color" content="#2563eb">
+<meta property="og:title" content="Lovely Apps – I love them.">
+<meta property="og:description" content="Portable Windows apps with no installers, no bloat.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='20' cy='50' r='14' fill='%23e11d48'/><circle cx='50' cy='50' r='14' fill='%23facc15'/><circle cx='80' cy='50' r='14' fill='%232563eb'/></svg>">
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#ffffff; --text:#18181b; --muted:#71717a; --border:#e4e4e7;
+  --card:#ffffff; --card-alt:#fcfcfd; --shadow:0 8px 24px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0b0f; --text:#e4e4e7; --muted:#a1a1aa; --border:#27272a;
+    --card:#12121a; --card-alt:#0f0f15; --shadow:0 8px 24px rgba(0,0,0,.5);
+  }
+}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.topbar{max-width:1200px;margin:0 auto;padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.site-logo{display:inline-flex;gap:4px;padding:8px 10px;border-radius:10px;background:var(--card-alt);border:1px solid var(--border)}
+.site-logo span{width:12px;height:12px;border-radius:50%;display:block}
+.site-logo span:nth-child(1){background:#e11d48} .site-logo span:nth-child(2){background:#facc15} .site-logo span:nth-child(3){background:#2563eb}
+.theme-hint{font-size:12px;color:var(--muted)}
+.hero{text-align:center;padding:10px 20px 30px}
+h1.title{margin:14px auto 8px;font-size:clamp(28px,5vw,42px);font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#2563eb,#7c3aed,#e11d48);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{margin:8px 0 22px;color:var(--muted);font-size:18px}
+
+/* NEW: Dropdown replaces search */
+.dropdown-wrap{max-width:900px;margin:0 auto;position:relative;text-align:left}
+.dropdown-label{display:block;font-size:13px;color:var(--muted);margin:0 0 8px 4px;font-weight:600;letter-spacing:.02em}
+.select-shell{position:relative}
+#appSelect{
+  width:100%;
+  padding:14px 44px 14px 16px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+  background:var(--card);
+  color:var(--text);
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#appSelect:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.select-arrow{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  pointer-events:none;opacity:.6;font-size:14px
+}
+.helper-text{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
+
+main{max-width:1000px;margin:0 auto;padding:10px 20px 70px}
+.app-row{border:2px solid var(--border);border-left:5px solid var(--app-color,#2563eb);background:var(--card);margin-bottom:26px;overflow:hidden;transition:box-shadow .18s,transform .18s;border-radius:10px}
+.app-row:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.app-title-bar{display:flex;align-items:center;gap:10px;padding:12px 14px;color:var(--text);font-weight:650;background:var(--card);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.app-icon{font-size:20px}
+.app-name{white-space:nowrap;font-size:16px;font-weight:700}
+.version-badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--card-alt);border:1px solid var(--border);color:var(--muted);margin-left:6px;font-weight:600}
+.app-desc{opacity:.85;font-weight:450;font-size:14px;margin-left:6px;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:120px}
+.copy-link{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:6px;font-size:14px}
+.copy-link:hover{color:#2563eb;background:var(--card-alt)}
+.app-body{display:grid;grid-template-columns:1fr 300px;min-height:110px}
+.app-updates{padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.app-updates a{color:var(--text);text-decoration:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;border-bottom:1px dashed var(--border);width:fit-content}
+.app-updates a:hover{color:#2563eb;border-bottom-color:#2563eb}
+.app-updates .empty{color:var(--muted);font-style:italic;font-size:14px}
+.app-download{border-left:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 18px;gap:8px;background:var(--card-alt)}
+.latest-btn{background:#18181b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:650;font-size:15px;min-width:180px;text-align:center;display:inline-block;transition:background .15s}
+.latest-btn:hover{background:#000}
+.latest-btn.disabled{background:#3f3f46;cursor:not-allowed;opacity:.7;pointer-events:none}
+.latest-meta{font-size:12px;color:var(--muted);text-align:center}
+.screenshots{display:flex;gap:10px;padding:14px 16px;background:var(--card-alt);border-top:1px solid var(--border);overflow-x:auto}
+.screenshot{flex:0 0 auto;width:240px;height:135px;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:transform .15s}
+.screenshot img{width:100%;height:100%;object-fit:cover;display:block}
+.screenshot:hover{transform:scale(1.03)}
+.screenshot.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;border-style:dashed;background:var(--card-alt)}
+footer{text-align:center;padding:36px 20px 60px;color:var(--muted);font-size:14px;border-top:1px solid var(--border)}
+#toTop{position:fixed;bottom:20px;right:20px;background:#18181b;color:#fff;border:none;border-radius:999px;width:44px;height:44px;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);z-index:100}
+#toTop.show{display:flex}
+#toTop:hover{background:#000}
+@media(max-width:720px){.app-body{grid-template-columns:1fr}.app-download{border-left:none;border-top:1px solid var(--border)}.app-desc{margin-left:0;width:100%}.screenshots{padding:12px}.screenshot{width:200px;height:112px}.dropdown-wrap{max-width:100%}}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
+#lightbox img{max-width:95vw;max-height:90vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#lightbox.show{display:flex}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="site-logo" aria-label="Lovely Apps logo"><span></span><span></span><span></span></div>
+    <div class="theme-hint">Auto dark mode</div>
+  </div>
+  <div class="hero">
+    <h1 class="title">Lovely Apps – I love them.</h1>
+    <p class="subtitle">No installers, no bloat. Simply play apps.</p>
+    
+    <!-- REPLACED SEARCH WITH DROPDOWN -->
+    <div class="dropdown-wrap">
+      <label class="dropdown-label" for="appSelect">Select an app to view</label>
+      <div class="select-shell">
+        <select id="appSelect" aria-label="Select app"></select>
+        <span class="select-arrow">▼</span>
+      </div>
+      <div class="helper-text">Long row shows full title line from each app</div>
+    </div>
+
+  </div>
+</header>
+
+<main id="appList"></main>
+
+<footer>
+  <div>© <span id="year"></span> Christopher Azeem • Built with love for portable apps</div>
+</footer>
+
+<button id="toTop" aria-label="Back to top">↑</button>
+<div id="lightbox" onclick="this.classList.remove('show')"><img alt="Preview"></div>
+
+<script>
+// ======= YOUR APP DATA - EDIT HERE TO ADD NEW APPS =======
+const APPS = [
+  {
+    name: "ClockBox",
+    version: "v3.2",
+    description: "Elegant desktop clock with alarms and world time",
+    icon: "🕒",
+    color: "#2563eb",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/ClockBox/refs/heads/main/ClockBox.exe" },
+      { platform: "Download Previous (.zip)", url: "https://github.com/Glaciercold101/ClockBox/archive/refs/heads/main.zip" }
+    ],
+    screenshots: ["clock1.png","clock2.png"]
+  },
+  {
+    name: "Folder Sync Mate",
+    version: "v1.5",
+    description: "Sync folders instantly, no cloud needed",
+    icon: "📁",
+    color: "#059669",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/Folder-Sync-Mate/refs/heads/main/FolderSyncMate.exe" }
+    ],
+    screenshots: ["sync1.png"]
+  },
+  {
+    name: "FCol - Folder Colorize",
+    version: "v2.1",
+    description: "Colorize your folders, find them faster",
+    icon: "🎨",
+    color: "#7c3aed",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/FCol/refs/heads/main/FCol.exe" }
+    ],
+    screenshots: ["fcol1.png"]
+  },
+  {
+    name: "UNO Game Spark",
+    version: "v1.3",
+    description: "Play UNO offline with smart bots, pure fun",
+    icon: "🃏",
+    color: "#e11d48",
+    downloads: [
+      { platform: "Online", url: "https://glaciercold101.github.io/UNO-Game/" },      
+      { platform: "Download UNO Spark Latest", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=7364b876%2D9077%2D4477%2Daf28%2D104aa0720db5" },
+      { platform: "Download Previous (.rar)", url: "https://raw.githubusercontent.com/Glaciercold101/UNO-Game/refs/heads/main/index.rar" }
+    ],
+    screenshots: ["uno1.png"]
+  },
+  {
+    name: "VerseBox Desktop Bible / Quran",
+    version: "v1.1.4",
+    description: "Brilliant App. Displays verses of Bible / Quran on your desktop",
+    icon: "📖",
+    color: "#dc2626",
+    downloads: [      
+      { platform: "Download Latest (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/VerseBox5.exe" },
+      { platform: "Download Latest (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/VerseBox5.exe" },
+      { platform: "Text Quran", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/Quran%20text.txt" },
+      { platform: "Text Bible", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/Full%20Bible.txt" }
+    ],
+    screenshots: ["vbox1.png","vbox2.png","vbox3.png"]
+  },
+  {
+    name: "FlashCardBox",
+    version: "v2",
+    description: "Have fun with FlashCards. Fabulous App.",
+    icon: "🗂️",
+    color: "#7f1d1d",
+    downloads: [      
+      { platform: "Download v2 (104MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=9d9d629f%2D9cdd%2D431e%2D89b2%2Dda03caa37644" },
+      { platform: "Online", url: "https://glaciercold101.github.io/FlashCardBox/" },
+      { platform: "Download v2 (104MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=9d9d629f%2D9cdd%2D431e%2D89b2%2Dda03caa37644" },
+      { platform: "Download v1 previous (66.7MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=53b029a6%2D3362%2D4c0b%2Da48e%2D991eb4992723" },
+      { platform: "<Downlaod> FL card set ' Horse & Hound '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=3ddfd135%2D6951%2D49b6%2Db80a%2D0ed970c910b7" },
+      { platform: "<Downlaod> FL card set ' Eagles Talon '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=6ea27a3f%2Db072%2D4b27%2Da8ea%2Db623278aae9e" },
+      { platform: "<Download> FL card set ' Arabic Words '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=4d10a7db%2D8f17%2D4a7d%2Daa21%2D159e19c303a8" }
+    ],
+    screenshots: ["flb1.png","flb2.png","flb3.png"]
+  }
+];
+
+const list = document.getElementById('appList');
+const appSelect = document.getElementById('appSelect');
+const lightbox = document.getElementById('lightbox');
+const toTop = document.getElementById('toTop');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function openLightbox(src){lightbox.querySelector('img').src=src;lightbox.classList.add('show')}
+function copyLink(id){
+  const url = location.origin + location.pathname + '#' + id;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn = document.querySelector(`#${id} .copy-link`);
+    if(btn){const t=btn.textContent;btn.textContent='✓';setTimeout(()=>btn.textContent=t,1200)}
+  });
+}
+
+// NEW: Build the long dropdown options from top title lines
+function populateDropdown(){
+  const options = APPS.map(app=>{
+    const id = 'app-'+slugify(app.name);
+    // This is the long title line you asked for
+    const longTitle = `${app.icon}  ${app.name}  ${app.version || ''} — ${app.description}`;
+    return `<option value="${id}">${longTitle}</option>`;
+  }).join('');
+  appSelect.innerHTML = `<option value="">— Show All Apps (${APPS.length}) —</option>` + options;
+}
+
+function render(selectedId=''){
+  let filtered = APPS;
+  if(selectedId){
+    filtered = APPS.filter(a => 'app-'+slugify(a.name) === selectedId);
+  }
+  if(!filtered.length){
+    list.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px">No apps found. <a href="#" onclick="resetFilter();return false;" style="color:#2563eb">Show all</a></p>';
+    return;
+  }
+  list.innerHTML = filtered.map(app=>{
+    const [latest,...older] = app.downloads || [];
+    const id = 'app-'+slugify(app.name);
+    const versionBadge = app.version ? `<span class="version-badge">${app.version}</span>` : '';
+    const hasUrl = latest && latest.url;
+    const latestBtn = hasUrl 
+      ? `<a class="latest-btn" href="${latest.url}" target="_blank" rel="noopener" aria-label="Download ${app.name} latest">${latest.platform.includes('Latest')?'Download Latest':'Download'}</a>`
+      : `<span class="latest-btn disabled" aria-disabled="true">Coming soon</span>`;
+    const latestMeta = hasUrl ? latest.platform : 'No file yet';
+    const shots = (app.screenshots||[]).slice(0,3);
+    const shotsHtml = shots.length 
+      ? shots.map(s=>`<div class="screenshot" onclick="openLightbox('${s}')"><img src="${s}" alt="${app.name} screenshot" loading="lazy" onerror="this.onerror=null;this.parentElement.classList.add('empty');this.parentElement.textContent='Image missing'"></div>`).join('')
+      : `<div class="screenshot empty">Add up to 3 screenshots</div>`;
+    const olderHtml = older.length 
+      ? older.filter(d=>d.url).map(d=>`<a href="${d.url}" target="_blank" rel="noopener">&lt; ${d.platform} &gt;</a>`).join('')
+      : '<span class="empty">No previous updates</span>';
+    return `<article class="app-row" id="${id}" style="--app-color:${app.color};border-color:${app.color}">
+      <div class="app-title-bar">
+        <span class="app-icon" aria-hidden="true">${app.icon}</span>
+        <span class="app-name">${app.name}</span>
+        ${versionBadge}
+        <span class="app-desc">${app.description}</span>
+        <button class="copy-link" onclick="copyLink('${id}')" title="Copy link" aria-label="Copy link to ${app.name}">🔗</button>
+      </div>
+      <div class="app-body">
+        <div class="app-updates">${olderHtml}</div>
+        <div class="app-download">${latestBtn}<div class="latest-meta">${latestMeta}</div></div>
+      </div>
+      <div class="screenshots">${shotsHtml}</div>
+    </article>`;
+  }).join('');
+}
+
+function resetFilter(){
+  appSelect.value = "";
+  localStorage.removeItem('lovely-selected');
+  render("");
+  history.replaceState(null,"",location.pathname);
+}
+
+// Events for dropdown
+appSelect.addEventListener('change', e=>{
+  const v = e.target.value;
+  if(v){
+    localStorage.setItem('lovely-selected', v);
+    render(v);
+    // update hash for shareable link
+    history.replaceState(null,"","#"+v);
+  } else {
+    resetFilter();
+  }
+  window.scrollTo({top: 320, behavior:'smooth'});
+});
+
+window.addEventListener('scroll', ()=>{ window.scrollY > 400 ? toTop.classList.add('show') : toTop.classList.remove('show') });
+toTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// Init
+populateDropdown();
+const hash = location.hash ? location.hash.substring(1) : "";
+const saved = localStorage.getItem('lovely-selected') || "";
+const initial = hash || saved || "";
+if(initial){
+  appSelect.value = initial;
+  // if saved value not found (e.g. after rename) fallback to all
+  if(!appSelect.value) appSelect.value = "";
+}
+render(appSelect.value);
+if(hash && appSelect.value){
+  setTimeout(()=>document.getElementById(hash)?.scrollIntoView({behavior:'smooth',block:'start'}), 150);
+}
+</script>
+</body>
+</html>
