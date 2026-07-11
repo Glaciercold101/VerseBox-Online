@@ -33,10 +33,13 @@ body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-se
 .hero{text-align:center;padding:10px 20px 30px}
 h1.title{margin:14px auto 8px;font-size:clamp(28px,5vw,42px);font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#2563eb,#7c3aed,#e11d48);-webkit-background-clip:text;background-clip:text;color:transparent}
 .subtitle{margin:8px 0 22px;color:var(--muted);font-size:18px}
-.search-wrap{max-width:560px;margin:0 auto;position:relative}
-#search{width:100%;padding:14px 16px 14px 44px;border:1px solid var(--border);border-radius:12px;font-size:16px;outline:none;background:var(--card);color:var(--text)}
-#search:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.18)}
-.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.55;color:var(--muted)}
+.dropdown-wrap{max-width:900px;margin:0 auto;position:relative;text-align:left}
+.dropdown-label{display:block;font-size:13px;color:var(--muted);margin:0 0 8px 4px;font-weight:600;letter-spacing:.02em}
+.select-shell{position:relative}
+#appSelect{width:100%;padding:14px 44px 14px 16px;border:1px solid var(--border);border-radius:12px;font-size:16px;outline:none;background:var(--card);color:var(--text);appearance:none;-webkit-appearance:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#appSelect:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.select-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.6;font-size:14px}
+.helper-text{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
 main{max-width:1000px;margin:0 auto;padding:10px 20px 70px}
 .app-row{border:2px solid var(--border);border-left:5px solid var(--app-color,#2563eb);background:var(--card);margin-bottom:26px;overflow:hidden;transition:box-shadow .18s,transform .18s;border-radius:10px}
 .app-row:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
@@ -81,9 +84,13 @@ footer{text-align:center;padding:36px 20px 60px;color:var(--muted);font-size:14p
   <div class="hero">
     <h1 class="title">Lovely Apps – I love them.</h1>
     <p class="subtitle">No installers, no bloat. Simply play apps.</p>
-    <div class="search-wrap">
-      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="search" id="search" placeholder="Search apps..." autocomplete="off" aria-label="Search apps">
+    <div class="dropdown-wrap">
+      <label class="dropdown-label" for="appSelect">Select an app to view</label>
+      <div class="select-shell">
+        <select id="appSelect" aria-label="Select app"></select>
+        <span class="select-arrow">▼</span>
+      </div>
+      <div class="helper-text">Long row shows full title line from each app</div>
     </div>
   </div>
 </header>
@@ -250,10 +257,9 @@ const APPS = [
 ];
 
 const list = document.getElementById('appList');
-const search = document.getElementById('search');
+const appSelect = document.getElementById('appSelect');
 const lightbox = document.getElementById('lightbox');
 const toTop = document.getElementById('toTop');
-document.getElementById('year').textContent = new Date().getFullYear();
 
 function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function openLightbox(src){lightbox.querySelector('img').src=src;lightbox.classList.add('show')}
@@ -265,11 +271,22 @@ function copyLink(id){
   });
 }
 
-function render(q=''){
-  const term = q.toLowerCase().trim();
-  const filtered = APPS.filter(a => (a.name+' '+a.description).toLowerCase().includes(term));
+function populateDropdown(){
+  const options = APPS.map(app=>{
+    const id = 'app-'+slugify(app.name);
+    const longTitle = `${app.icon}  ${app.name}  ${app.version || ''} — ${app.description}`;
+    return `<option value="${id}">${longTitle}</option>`;
+  }).join('');
+  appSelect.innerHTML = `<option value="">— Show All Apps (${APPS.length}) —</option>` + options;
+}
+
+function render(selectedId=''){
+  let filtered = APPS;
+  if(selectedId){
+    filtered = APPS.filter(a => 'app-'+slugify(a.name) === selectedId);
+  }
   if(!filtered.length){
-    list.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px">No apps found.</p>';
+    list.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px">No apps found. <a href="#" onclick="resetFilter();return false;" style="color:#2563eb">Show all</a></p>';
     return;
   }
   list.innerHTML = filtered.map(app=>{
@@ -303,23 +320,40 @@ function render(q=''){
       <div class="screenshots">${shotsHtml}</div>
     </article>`;
   }).join('');
-  if(location.hash){document.querySelector(location.hash)?.scrollIntoView({behavior:'smooth',block:'start'})}
+  if(location.hash && !selectedId){document.querySelector(location.hash)?.scrollIntoView({behavior:'smooth',block:'start'})}
 }
 
-let timer;
-const saved = localStorage.getItem('lovely-search') || '';
-if(saved){search.value = saved}
-search.addEventListener('input', e=>{
-  clearTimeout(timer);
+function resetFilter(){
+  appSelect.value = "";
+  localStorage.removeItem('lovely-selected');
+  render("");
+  history.replaceState(null,"",location.pathname);
+}
+
+appSelect.addEventListener('change', e=>{
   const v = e.target.value;
-  localStorage.setItem('lovely-search', v);
-  timer = setTimeout(()=>render(v), 180);
+  if(v){
+    localStorage.setItem('lovely-selected', v);
+    render(v);
+    history.replaceState(null,"","#"+v);
+  } else {
+    resetFilter();
+  }
+  window.scrollTo({top: 320, behavior:'smooth'});
 });
 
 window.addEventListener('scroll', ()=>{ window.scrollY > 400 ? toTop.classList.add('show') : toTop.classList.remove('show') });
 toTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-render(saved);
+populateDropdown();
+const hash = location.hash ? location.hash.substring(1) : "";
+const saved = localStorage.getItem('lovely-selected') || "";
+const initial = hash || saved || "";
+if(initial){
+  appSelect.value = initial;
+  if(!appSelect.value) appSelect.value = "";
+}
+render(appSelect.value);
 </script>
 </body>
 </html>
