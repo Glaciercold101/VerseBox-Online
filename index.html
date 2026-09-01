@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lovely Apps – I love them.</title>
+<meta name="description" content="No installers, no bloat. Portable Windows apps by Glaciercold101 — ClockBox, Folder Sync Mate, FCol, UNO Game, VerseBox, FlashCardBox.">
+<meta name="author" content="Christopher Azeem">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='20' cy='50' r='14' fill='%23e11d48'/><circle cx='50' cy='50' r='14' fill='%23facc15'/><circle cx='80' cy='50' r='14' fill='%232563eb'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#fcfaf8;
+  --bg2:#f5f1ec;
+  --paper:#ffffff;
+  --ink:#121212;
+  --muted:#8b8b94;
+  --muted2:#b5b5bf;
+  --border:#ece8e2;
+  --border2:#e8e2da;
+  --shadow:0 20px 60px rgba(20,15,10,.08),0 2px 10px rgba(20,15,10,.06);
+  --shadow-sm:0 6px 20px rgba(20,15,10,.07);
+  --radius:20px;
+  --radius-sm:12px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0e0e10;
+    --bg2:#16161a;
+    --paper:#1a1a20;
+    --ink:#f2f0ed;
+    --muted:#9a9aa3;
+    --muted2:#6b6b74;
+    --border:#232329;
+    --border2:#2a2a32;
+    --shadow:0 20px 60px rgba(0,0,0,.5),0 2px 10px rgba(0,0,0,.4);
+    --shadow-sm:0 6px 20px rgba(0,0,0,.3);
+  }
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Geist", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+/* Grain */
+body:before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:-1;
+  opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Header */
+.topbar{
+  max-width:1200px; margin:0 auto;
+  padding:24px 28px 0;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.brand{
+  display:flex; align-items:center; gap:14px;
+}
+.mark{
+  display:flex; gap:5px; padding:10px 12px;
+  background:var(--paper); border:1px solid var(--border);
+  border-radius:999px; box-shadow:var(--shadow-sm);
+}
+.mark span{width:10px;height:10px;border-radius:50%;display:block}
+.mark span:nth-child(1){background:#ff2e63}
+.mark span:nth-child(2){background:#ffcc33}
+.mark span:nth-child(3){background:#4f46e5}
+.brand-name{
+  font-family:"Instrument Serif", serif;
+  font-size:17px; letter-spacing:-.02em;
+}
+.nav-meta{
+  font-family:"Geist Mono", monospace;
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted);
+  display:flex; gap:18px; align-items:center;
+}
+.nav-meta b{color:var(--ink); font-weight:600}
+
+/* Hero */
+.hero{
+  max-width:1200px; margin:0 auto;
+  padding:62px 28px 36px;
+  display:grid; grid-template-columns:1.15fr .85fr;
+  gap:40px; align-items:end;
+}
+@media(max-width:900px){ .hero{grid-template-columns:1fr; padding:32px 20px 20px} }
+
+.kicker{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:"Geist Mono", monospace;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  background:var(--paper); border:1px solid var(--border);
+  padding:7px 12px; border-radius:999px; color:var(--muted);
+}
+.kicker i{width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+.title{
+  margin:18px 0 14px;
+  font-family:"Instrument Serif", serif;
+  font-size:clamp(42px,6vw,76px);
+  line-height:.92; letter-spacing:-.03em; font-weight:400;
+}
+.title em{
+  font-style:italic;
+  background:linear-gradient(90deg,#4f46e5,#a855f7,#ff2e63);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.subtitle{
+  margin:0; max-width:46ch;
+  font-size:17px; line-height:1.5; color:var(--muted);
+  font-weight:400;
+}
+.hero-card{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow-sm);
+}
+.hero-card-head{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:14px;
+}
+.hero-card-head strong{
+  font-family:"Geist Mono", monospace;
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+}
+.pill{
+  font-size:11px; padding:4px 8px; border-radius:999px;
+  background:var(--bg2); border:1px solid var(--border); color:var(--muted);
+}
+.select-wrap{position:relative}
+#appSelect{
+  width:100%; appearance:none; -webkit-appearance:none;
+  background:var(--bg2); border:1px solid var(--border2);
+  border-radius:14px; padding:14px 44px 14px 16px;
+  font-family:"Geist", sans-serif; font-size:14px; font-weight:500;
+  color:var(--ink); outline:none; cursor:pointer;
+  transition:.15s;
+}
+#appSelect:focus{border-color:#4f46e5; box-shadow:0 0 0 4px rgba(79,70,229,.15); background:var(--paper)}
+.select-arrow{
+  position:absolute; right:14px; top:50%; transform:translateY(-50%);
+  pointer-events:none; color:var(--muted);
+}
+.helper{
+  margin-top:10px; font-size:12px; color:var(--muted); display:flex; gap:6px; align-items:center;
+}
+.helper code{
+  font-family:"Geist Mono", monospace; font-size:11px;
+  background:var(--bg2); border:1px solid var(--border); padding:2px 6px; border-radius:6px;
+}
+
+/* Main */
+main{max-width:1200px; margin:0 auto; padding:10px 28px 90px}
+@media(max-width:900px){ main{padding:10px 16px 80px} }
+
+.apps-grid{
+  display:grid; gap:28px;
+}
+
+/* Card */
+.app-card{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform .22s ease, box-shadow .22s ease;
+  position:relative;
+}
+.app-card:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+.app-card:before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background:var(--accent,#4f46e5);
+}
+.app-top{
+  display:flex; gap:16px; padding:20px 22px 18px 24px;
+  align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+.app-identity{display:flex; gap:14px; align-items:center; min-width:0; flex:1}
+.app-icon-box{
+  width:44px; height:44px; border-radius:12px;
+  display:grid; place-items:center; font-size:22px;
+  background:var(--bg2); border:1px solid var(--border);
+  flex:0 0 auto;
+}
+.app-name-wrap{min-width:0}
+.app-name-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.app-name{
+  font-family:"Instrument Serif", serif; font-size:22px; letter-spacing:-.02em; line-height:1;
+}
+.version{
+  font-family:"Geist Mono", monospace; font-size:11px;
+  padding:3px 8px; border-radius:999px; background:var(--bg2); border:1px solid var(--border);
+  color:var(--muted); font-weight:500;
+}
+.app-desc{
+  margin-top:4px; font-size:13px; color:var(--muted); line-height:1.4;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:42ch;
+}
+@media(max-width:600px){ .app-desc{white-space:normal} }
+.app-actions{display:flex; gap:8px; align-items:center}
+.icon-btn{
+  width:34px; height:34px; border-radius:10px;
+  border:1px solid var(--border); background:var(--bg2);
+  display:grid; place-items:center; cursor:pointer; color:var(--muted);
+  transition:.15s;
+}
+.icon-btn:hover{color:var(--ink); background:var(--paper); border-color:var(--border2)}
+
+.app-mid{
+  display:grid; grid-template-columns:1fr 300px;
+}
+@media(max-width:860px){ .app-mid{grid-template-columns:1fr} }
+
+.changelog{
+  padding:18px 22px 20px 24px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.changelog-label{
+  font-family:"Geist Mono", monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted2);
+  margin-bottom:6px;
+}
+.changelog a{
+  font-family:"Geist Mono", monospace; font-size:13px;
+  text-decoration:none; color:var(--ink);
+  padding:6px 0; border-bottom:1px dashed var(--border);
+  width:fit-content; max-width:100%;
+  transition:.15s;
+}
+.changelog a:hover{color:#4f46e5; border-bottom-color:#4f46e5}
+.changelog .empty{color:var(--muted); font-style:italic; font-size:13px}
+
+.download-col{
+  border-left:1px solid var(--border);
+  background:linear-gradient(180deg,var(--paper),var(--bg2));
+  padding:22px 20px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+}
+@media(max-width:860px){ .download-col{border-left:none; border-top:1px solid var(--border)} }
+
+.btn-primary{
+  width:100%; max-width:260px;
+  background:var(--ink); color:var(--bg);
+  border:1px solid var(--ink);
+  padding:13px 18px; border-radius:12px;
+  font-weight:600; font-size:14px; text-align:center;
+  text-decoration:none; display:inline-flex; justify-content:center; align-items:center; gap:8px;
+  transition:transform .15s, background .15s, box-shadow .15s;
+  box-shadow:0 6px 16px rgba(0,0,0,.12);
+}
+.btn-primary:hover{transform:translateY(-1px); background:#000}
+@media(prefers-color-scheme:dark){ .btn-primary{background:#f2f0ed; color:#0e0e10; border-color:#f2f0ed} .btn-primary:hover{background:#fff} }
+.btn-primary.disabled{opacity:.5; pointer-events:none; transform:none; box-shadow:none}
+.meta-mini{
+  font-family:"Geist Mono", monospace; font-size:11px; color:var(--muted); text-align:center;
+  max-width:26ch; line-height:1.4;
+}
+
+/* Screenshots */
+.screens{
+  display:flex; gap:12px; padding:14px 16px 16px 24px;
+  background:var(--bg2); border-top:1px solid var(--border);
+  overflow-x:auto; scrollbar-width:thin;
+}
+.screens::-webkit-scrollbar{height:6px}
+.screens::-webkit-scrollbar-thumb{background:var(--border2); border-radius:999px}
+.shot{
+  flex:0 0 auto; width:248px; height:148px; border-radius:12px; overflow:hidden;
+  border:1px solid var(--border); background:var(--paper);
+  cursor:pointer; position:relative; transition:transform .18s;
+}
+.shot img{width:100%; height:100%; object-fit:cover; display:block}
+.shot:hover{transform:translateY(-1px) scale(1.01)}
+.shot.empty{
+  display:grid; place-items:center; color:var(--muted); font-size:12px; border-style:dashed;
+  font-family:"Geist Mono", monospace;
+}
+
+/* Footer */
+footer{
+  max-width:1200px; margin:0 auto; padding:40px 28px 80px;
+  border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  color:var(--muted); font-size:13px;
+}
+footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--border)}
+footer a:hover{border-color:var(--ink)}
+
+/* Lightbox & ToTop */
+#lightbox{position:fixed; inset:0; background:rgba(10,10,12,.88); backdrop-filter:blur(12px); display:none; align-items:center; justify-content:center; z-index:9999; padding:24px}
+#lightbox img{max-width:min(92vw,1200px); max-height:86vh; border-radius:16px; box-shadow:0 20px 80px rgba(0,0,0,.6)}
+#lightbox.show{display:flex}
+#toTop{
+  position:fixed; bottom:22px; right:22px; width:44px; height:44px; border-radius:999px;
+  background:var(--ink); color:var(--bg); border:1px solid var(--ink);
+  display:none; place-items:center; cursor:pointer; box-shadow:var(--shadow); z-index:100;
+}
+#toTop.show{display:grid}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark"><span></span><span></span><span></span></div>
+      <div class="brand-name">Lovely Apps</div>
+    </div>
+    <div class="nav-meta"><span>Portable • No installer • Windows</span><b>by Glaciercold101</b></div>
+  </div>
+  <div class="hero">
+    <div>
+      <div class="kicker"><i></i> I love them. You will too.</div>
+      <h1 class="title">Lovely apps that<br>stay <em>portable.</em></h1>
+      <p class="subtitle">No installers, no bloat, no registry mess. Just download, unzip, and run. Crafted for people who like their software small, fast, and theirs.</p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-head"><strong>Find an app</strong><span class="pill" id="countPill">0 apps</span></div>
+      <div class="select-wrap">
+        <select id="appSelect" aria-label="Filter apps"></select>
+        <span class="select-arrow">▾</span>
+      </div>
+      <div class="helper"><span>Tip: Press</span><code>/</code><span>to focus • Copy link with 🔗</span></div>
+    </div>
+  </div>
+</header>
+
+<main><div id="appList" class="apps-grid"></div></main>
+
+<footer>
+  <div>© <span id="year"></span> Christopher Azeem — Made with care in Kandy. <br><span style="font-family:Geist Mono, monospace; font-size:11px">PORTABLE APPS • NO BLOAT • OPEN-BY-DEFAULT</span></div>
+  <div style="display:flex; gap:16px"><a href="#" onclick="resetFilter();return false;">Show all</a><a href="https://github.com/glaciercold101" target="_blank">GitHub</a></div>
+</footer>
+
+<button id="toTop" aria-label="Back to top">↑</button>
+<div id="lightbox" onclick="this.classList.remove('show')"><img alt=""></div>
+
+<script>
+/* ---------- DATA : keep your original array here ---------- */
+const APPS = [
+{
+    name: "Salvation-Beads Prayer Table",
+    version: "Cinematic v8.1.2",
+    description: "Salvation-Beads Prayer Table Morning & Afternoon Rosaries",
+    icon: "🎼",
+    color: "#2596be",
+    downloads: [
+      { platform: "SB v8.1.2 Now with more beautiful cinamatic themes and clickable prayers and beads", 
+       url: "https://raw.githubusercontent.com/Glaciercold101/Salvation-Prayer-Table-online/refs/heads/main/SB_v8.1.2.exe" }, 
+      { platform: "SB v8.1.2 Now with more beautiful cinamatic themes and clickable prayers and beads", 
+       url: "https://raw.githubusercontent.com/Glaciercold101/Salvation-Prayer-Table-online/refs/heads/main/SB_v8.1.2.exe" }, 
+      { platform: "SB v8 Now with beautiful cinamatic themes", 
+       url: "https://raw.githubusercontent.com/Glaciercold101/Salvation-Prayer-Table-online/refs/heads/main/SB.exe" },   
+      { platform: "Download v4 Previous 'Now with beautiful cinamatic themes", 
+       url: "https://raw.githubusercontent.com/Glaciercold101/Salvation-Prayer-Table-online/refs/heads/main/SalB.exe" },
+      { platform: "Download Previous 'Standalone App' No install, Just run (104MB)", 
+       url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=0a25543a%2D6bfe%2D4bf4%2Da58b%2D239e5798880e" }, 
+      { platform: "Morning & Afternoon, Sun-Sat Rosary,App audio prayer files (.rar) (244MB)", 
+       url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=a9999e56%2Df234%2D44fd%2D9837%2D5469aba2c362" },
+      { platform: "Prayer text cards. ", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=602cd737%2De0ee%2D4af1%2D9833%2D19e21251de07" },
+      { platform: "Online", url: "https://glaciercold101.github.io/Salvation-Prayer-Table-online/" },
+      { "platform": "MOBILE, Open this link on chrome and play with downloaded audio file.",
+       "url": "https://salvationbeads.netlify.app/" }      
+    ],
+    screenshots: [
+       "beadsprayer1.png",
+       "beadsprayer2.png"
+    ]
+  },
+  {
+    name: "ClockBox",
+    version: "v1",
+    description: "Beautiful & Simple Time and Date Clock on your desktop",
+    icon: "🕒",
+    color: "#7c3aed",
+    downloads: [
+      { platform: "Download Latest (.rar)", url: "https://raw.githubusercontent.com/Glaciercold101/ClockBox/refs/heads/main/ClockBox.rar" },
+      { platform: "Download Latest (.rar)", url: "https://raw.githubusercontent.com/Glaciercold101/ClockBox/refs/heads/main/ClockBox.rar" }
+    ],
+    screenshots: [
+       "clock1.png",
+       "clock2.png"
+    ]
+  },
+  {
+    name: "Music Box",
+    version: "BETA",
+    description: "All for Image & Music Editing and Composing. (Beta)",
+    icon: "💿",
+    color: "#FF0F4C",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=4d78b5a9%2D1151%2D4bc3%2Da898%2D7810fe1e2e5f" },
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=4d78b5a9%2D1151%2D4bc3%2Da898%2D7810fe1e2e5f" }
+    ],
+    screenshots: [
+       "musicbox1.png"  
+    ]
+  },
+   {
+    name: "Net Clock",
+    version: "v1",
+    description: "Small graph of ineternet speed & progress, daily bandwidth.",
+    icon: "🔃",
+    color: "#e6004c",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=94dabda5%2Ddff2%2D4159%2D81a2%2Db1e69a5991e6" },
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=94dabda5%2Ddff2%2D4159%2D81a2%2Db1e69a5991e6" }
+    ],
+    screenshots: [
+       "netclock1.png",       
+       "netclock2.png" 
+    ]
+  },
+  {
+    name: "Folder Sync Mate - App",
+    version: "v2",
+    description: "Sync files between folders",
+    icon: "🔄",
+    color: "#2563eb",
+    downloads: [
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=70d38b5d%2D83f8%2D4922%2Db9b0%2D7280a48217d9" },
+      { platform: "Online", url: "https://glaciercold101.github.io/Folder-Sync-Mate/" },
+      { platform: "Download Latest (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=70d38b5d%2D83f8%2D4922%2Db9b0%2D7280a48217d9" },
+      { platform: "Download previous_v2 (.exe)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=6105b84c%2D84c1%2D4526%2D9bb2%2Da567d15c61d0" },
+      { platform: "Download Previous_v1 (.rar)", url: "https://raw.githubusercontent.com/Glaciercold101/Folder-Sync-Mate/refs/heads/main/FSync%20Mate.rar" }
+    ],
+    screenshots: [
+       "fsync.png"
+    ]
+  },
+  {
+    name: "FCol",
+    version: "",
+    description: "Add color & Icons to folders",
+    icon: "📁",
+    color: "#0d9488",
+    downloads: [
+      { platform: "Download", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=6c474b73%2D0214%2D4e00%2Da4f0%2D7414f01ee698" },
+      { platform: "Download Latest", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=6c474b73%2D0214%2D4e00%2Da4f0%2D7414f01ee698" }
+    ],
+    screenshots: [
+       "fcol1.png",
+       "fcol2.png"
+    ]
+  },
+  {
+    name: "UNO Game",
+    version: "New",
+    description: "No install. Just download and play. Pin it to tab on explorer.",
+    icon: "🎴",
+    color: "#ea580c",
+    downloads: [
+      { platform: "Download UNO Spark Latest", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=7364b876%2D9077%2D4477%2Daf28%2D104aa0720db5" },
+      { platform: "Mobile", url: "https://unospark.netlify.app/" },      
+      { platform: "Online", url: "https://glaciercold101.github.io/UNO-Game/" }, 
+      { platform: "Download UNO Spark Latest", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=7364b876%2D9077%2D4477%2Daf28%2D104aa0720db5" },
+      { platform: "Download Previous (.rar)", url: "https://raw.githubusercontent.com/Glaciercold101/UNO-Game/refs/heads/main/index.rar" }
+    ],
+    screenshots: [
+       "uno1.png"       
+    ]
+  },
+  {
+    name: "VerseBox Desktop Bible / Quran",
+    version: "v4.0.0",
+    description: "Brilliant App. Displays verses of Bible / Quran on your desktop",
+    icon: "📖",
+    color: "#dc2626",
+    downloads: [      
+      { platform: "Download Latest APP(.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/VerseBox5.exe" },
+      { platform: "Download Latest APP(.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/VerseBox5.exe" },      
+      { platform: "MOBILE via Online page", url: "https://glaciercold101.github.io/VerseBox/" },
+      { platform: "Text Quran", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/Quran%20text.txt" },      
+      { platform: "Selected Bible versus", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/english-nkjv.txt" },
+      { platform: "Text Bible", url: "https://raw.githubusercontent.com/Glaciercold101/VerseBox/refs/heads/main/Full%20Bible.txt" }
+    ],
+    screenshots: [
+       "vbox1.png",
+       "vbox2.png",
+       "vbox3.png"
+    ]
+  },
+   {
+    name: "Browney Color Sheets: NoteBook Studio",
+    version: "R2_v4",
+    description: "Brilliant App. New NoteBook and reader. ",
+    icon: "😹",
+    color: "#2626dc",
+    downloads: [      
+      { platform: "Download Latest R2_v4 (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/Browney/refs/heads/main/Notbook%20Studio%20R2_v4.exe" },
+      { platform: "Download Latest R2_v4 (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/Browney/refs/heads/main/Notbook%20Studio%20R2_v4.exe" },
+      { platform: "Download Previous R1_v3 (.exe)", url: "https://raw.githubusercontent.com/Glaciercold101/Browney/refs/heads/main/NoteBook%20Studio.exe" }
+    ],
+    screenshots: [
+       "bcs1.png",
+       "bcs2.png",
+       "bcs3.png"
+    ]
+  },
+  {
+    name: "FlashCardBox",
+    version: "SQUIDLEY BLUE",
+    description: "Have fun with FlashCards. Fabulous App.",
+    icon: "🎴",
+    color: "#7f1d1d",
+    downloads: [      
+      { platform: "Download Latest, Squidley Blue Flash Cards (69MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=13bb9db1%2Df32b%2D4da5%2Dab07%2D5f5de6a681ac" },
+      { platform: "Online", url: "https://glaciercold101.github.io/SquidleyFlashCards/" },      
+      { platform: "Download Latest, Squidley Blue Flash Cards, with gallery view (69MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=13bb9db1%2Df32b%2D4da5%2Dab07%2D5f5de6a681ac" },
+      { platform: "Download v3 previous, Squidley Flash Cards (69MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=86e31ed6%2D5694%2D4436%2Dac47%2Df64c53d8d121" },
+      { platform: "Download v2 previous (104MB)", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=9d9d629f%2D9cdd%2D431e%2D89b2%2Dda03caa37644" },
+      { platform: "Download v1 previous (66.7MB)",
+       url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=53b029a6%2D3362%2D4c0b%2Da48e%2D991eb4992723" },
+      { platform: "<Downlaod> FL card set ' Asma-ul-Husna, text (<1mb) '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=104f5d8c%2Debb1%2D4d82%2Daeb0%2Dfcaf0e3ad373" },
+      { platform: "<Downlaod> FL card set ' Horse & Hound (93mb) '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=3ddfd135%2D6951%2D49b6%2Db80a%2D0ed970c910b7" },
+      { platform: "<Downlaod> FL card set ' Eagles Talon (34mb) '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=6ea27a3f%2Db072%2D4b27%2Da8ea%2Db623278aae9e" },
+      { platform: "<Download> FL card set ' Arabic Words (<1mb) '", url: "https://onedrive.live.com/personal/F80848860002D09F/_layouts/15/download.aspx?UniqueId=4d10a7db%2D8f17%2D4a7d%2Daa21%2D159e19c303a8" },
+      { platform: "MOBILE - Go online and install page as an app or add shortcut '", url: "https://glaciercold101.github.io/SquidleyFlashCards/" }
+        ],
+    screenshots: [
+       "flb1.png",
+       "flb2.png",
+       "flb4.png"
+    ]
+  },
+  {
+    name: "My Hobbies",
+    version: "Hobbies",
+    description: "Hobbies Note Books ",
+    icon: "⛸️",
+    color: "#8e3ce0",
+    downloads: [      
+      { platform: "Ballooning", url: "https://glaciercold101.github.io/Hobby/Ballooning/" },
+      { platform: "🔮 Ballooning", url: "https://glaciercold101.github.io/Hobby/Ballooning/" },
+      { platform: "🐝 BeeKeeping", url: "https://glaciercold101.github.io/Hobby/BeeKeeping/" },
+      { platform: "🌬️ Diving", url: "https://glaciercold101.github.io/Hobby/diving/" },
+      { platform: "🦅 Falconry", url: "https://glaciercold101.github.io/Hobby/falconry/" },
+      { platform: "📚 Quick Excel - From a Webpage to local drive, offline. ", url: "https://glaciercold101.github.io/Hobby/excel/" },
+      { platform: "💎 asma-ul-husna - Flash Cards", url: "https://glaciercold101.github.io/Hobby/asma/" }
+    ],
+    screenshots: [
+       "hobb1.png",
+       "hobb2.jpg",
+       "hobb3.png"
+    ]
+  }
+];
+
+const list = document.getElementById('appList');
+const appSelect = document.getElementById('appSelect');
+const lightbox = document.getElementById('lightbox');
+const toTop = document.getElementById('toTop');
+const countPill = document.getElementById('countPill');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function openLightbox(src){lightbox.querySelector('img').src=src; lightbox.classList.add('show')}
+function copyLink(id){
+  const url = location.origin + location.pathname + '#' + id;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn = document.querySelector(`#${id} [data-copy]`);
+    if(btn){ const o=btn.textContent; btn.textContent='✓'; setTimeout(()=>btn.textContent=o,1200) }
+  });
+}
+function populateDropdown(){
+  countPill.textContent = `${APPS.length} apps`;
+  const options = APPS.map(app=>{
+    const id = 'app-'+slugify(app.name);
+    const longTitle = `${app.icon} ${app.name} — ${app.description}`;
+    return `<option value="${id}">${longTitle}</option>`;
+  }).join('');
+  appSelect.innerHTML = `<option value="">Show all apps</option>` + options;
+}
+function render(selectedId=''){
+  let filtered = APPS;
+  if(selectedId) filtered = APPS.filter(a => 'app-'+slugify(a.name) === selectedId);
+  if(!filtered.length){
+    list.innerHTML = `<div style="text-align:center; padding:60px 20px; background:var(--paper); border:1px dashed var(--border); border-radius:20px; color:var(--muted)">No apps found. <a href="#" onclick="resetFilter();return false;" style="color:#4f46e5">Show all</a></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(app=>{
+    const [latest,...older] = app.downloads || [];
+    const id = 'app-'+slugify(app.name);
+    const hasUrl = latest && latest.url && latest.url !== '#';
+    const latestBtn = hasUrl 
+      ? `<a class="btn-primary" href="${latest.url}" target="_blank" rel="noopener">↓ ${latest.platform.includes('Latest')?'Download Latest':'Download'}</a>`
+      : `<span class="btn-primary disabled">Coming soon</span>`;
+    const latestMeta = latest ? latest.platform : 'No file yet';
+    const shots = (app.screenshots||[]).slice(0,6);
+    const shotsHtml = shots.length 
+      ? shots.map(s=>`<div class="shot" onclick="openLightbox('${s}')"><img src="${s}" alt="${app.name}" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove(); this.parentElement.textContent='Image missing'"></div>`).join('')
+      : `<div class="shot empty">No screenshots yet</div>`;
+    const olderHtml = older.length 
+      ? older.filter(d=>d.url).map(d=>`<a href="${d.url}" target="_blank" rel="noopener">${d.platform}</a>`).join('')
+      : '<span class="empty">No previous versions</span>';
+    return `<article class="app-card" id="${id}" style="--accent:${app.color}">
+      <div class="app-top">
+        <div class="app-identity">
+          <div class="app-icon-box">${app.icon}</div>
+          <div class="app-name-wrap">
+            <div class="app-name-row">
+              <span class="app-name">${app.name}</span>
+              <span class="version">${app.version||''}</span>
+            </div>
+            <div class="app-desc">${app.description}</div>
+          </div>
+        </div>
+        <div class="app-actions">
+          <button class="icon-btn" data-copy onclick="copyLink('${id}')" title="Copy link">🔗</button>
+        </div>
+      </div>
+      <div class="app-mid">
+        <div class="changelog"><div class="changelog-label">Previous / Other builds</div>${olderHtml}</div>
+        <div class="download-col">${latestBtn}<div class="meta-mini">${latestMeta}</div></div>
+      </div>
+      <div class="screens">${shotsHtml}</div>
+    </article>`;
+  }).join('');
+}
+function resetFilter(){
+  appSelect.value = "";
+  localStorage.removeItem('lovely-selected');
+  render("");
+  history.replaceState(null,"",location.pathname);
+}
+appSelect.addEventListener('change', e=>{
+  const v = e.target.value;
+  if(v){ localStorage.setItem('lovely-selected', v); render(v); history.replaceState(null,"","#"+v); }
+  else resetFilter();
+  window.scrollTo({top: 420, behavior:'smooth'});
+});
+window.addEventListener('scroll', ()=>{ window.scrollY > 400 ? toTop.classList.add('show') : toTop.classList.remove('show') });
+toTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement.tagName!=='SELECT' && document.activeElement.tagName!=='INPUT'){ e.preventDefault(); appSelect.focus(); } if(e.key==='Escape') lightbox.classList.remove('show'); });
+
+populateDropdown();
+const hash = location.hash ? location.hash.substring(1) : "";
+const saved = localStorage.getItem('lovely-selected') || "";
+const initial = hash || saved || "";
+if(initial) appSelect.value = initial;
+render(appSelect.value);
+</script>
+</body>
+</html>
