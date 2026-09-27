@@ -311,6 +311,63 @@ footer a:hover{border-color:var(--ink)}
   display:none; place-items:center; cursor:pointer; box-shadow:var(--shadow); z-index:100;
 }
 #toTop.show{display:grid}
+
+/* ===== NEW: Button-Grid Variant (Hobbies / App Websites) ===== */
+.app-card.is-buttons{
+  --btn-accent: var(--accent);
+}
+.button-grid-wrap{
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--bg2) 100%);
+}
+.button-grid-label{
+  font-family:"Geist Mono", monospace;
+  font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.button-grid-label i{
+  width:6px; height:6px; border-radius:50%; background:var(--btn-accent); display:inline-block;
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--btn-accent) 18%, transparent);
+}
+.button-grid{
+  display:flex; flex-wrap:wrap; gap:10px;
+}
+.chip-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:10px 15px 10px 10px;
+  border-radius:999px;
+  background:var(--paper);
+  border:1px solid var(--border2);
+  font-size:13.5px; font-weight:500; line-height:1;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  white-space:nowrap;
+}
+.chip-btn:hover{
+  transform:translateY(-2px);
+  border-color: color-mix(in srgb, var(--btn-accent) 35%, var(--border2));
+  box-shadow: 0 10px 24px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+  background: var(--paper);
+}
+.chip-btn-icon{
+  width:28px; height:28px; min-width:28px;
+  display:grid; place-items:center;
+  border-radius:50%;
+  background: color-mix(in srgb, var(--btn-accent) 12%, var(--bg2));
+  border:1px solid color-mix(in srgb, var(--btn-accent) 18%, var(--border));
+  font-size:14px;
+}
+.chip-btn-label{
+  padding-right:2px;
+}
+.app-card.is-buttons .screens{
+  border-top:1px dashed var(--border);
+  opacity:.9;
+}
+.app-card.is-buttons .app-mid{display:none !important}
+
 </style>
 </head>
 <body>
@@ -540,25 +597,49 @@ const APPS = [
        "flb4.png"
     ]
   },
-  {
+    {
     name: "My Hobbies",
-    version: "Hobbies",
-    description: "Hobbies Note Books ",
-    icon: "⛸️",
+    version: "Collection",
+    description: "Hobby Note Books — tap a hobby to open. Add more by copying one line below.",
+    icon: "🎨",
     color: "#8e3ce0",
-    downloads: [      
-      { platform: "Ballooning", url: "https://glaciercold101.github.io/Hobby/Ballooning/" },
-      { platform: "🔮 Ballooning", url: "https://glaciercold101.github.io/Hobby/Ballooning/" },
-      { platform: "🐝 BeeKeeping", url: "https://glaciercold101.github.io/Hobby/BeeKeeping/" },
-      { platform: "🌬️ Diving", url: "https://glaciercold101.github.io/Hobby/diving/" },
-      { platform: "🦅 Falconry", url: "https://glaciercold101.github.io/Hobby/falconry/" },
-      { platform: "💎 asma-ul-husna - Flash Cards", url: "https://glaciercold101.github.io/Hobby/asma/" }
+    variant: "buttons",
+    // TEMPLATE: To add a hobby, copy/paste this line → { platform: "New Hobby", icon: "🌟", url: "https://glaciercold101.github.io/Hobby/NewHobby/" },
+    downloads: [
+      { platform: "Ballooning", icon: "🎈", url: "https://glaciercold101.github.io/Hobby/Ballooning/" },
+      { platform: "BeeKeeping", icon: "🐝", url: "https://glaciercold101.github.io/Hobby/BeeKeeping/" },
+      { platform: "Diving", icon: "🤿", url: "https://glaciercold101.github.io/Hobby/diving/" },
+      { platform: "Falconry", icon: "🦅", url: "https://glaciercold101.github.io/Hobby/falconry/" },
+      { platform: "Asma-ul-Husna", icon: "💎", url: "https://glaciercold101.github.io/Hobby/asma/" },
+      { platform: "Excel Quick Tool", icon: "📊", url: "https://glaciercold101.github.io/Hobby/excel/" }
     ],
     screenshots: [
        "hobb1.png",
        "hobb2.jpg",
        "hobb3.png"
     ]
+  },
+  {
+    name: "App Websites",
+    version: "Online Links",
+    description: "All apps also run online — open, install as PWA, or add to home screen.",
+    icon: "🌐",
+    color: "#0ea5e9",
+    variant: "buttons",
+    // TEMPLATE: To add another website, copy/paste → { platform: "App Name Online", icon: "🔗", url: "https://glaciercold101.github.io/..." },
+    downloads: [
+      { platform: "VerseBox Online", icon: "📖", url: "https://glaciercold101.github.io/VerseBox/" },
+      { platform: "Browney Notebook", icon: "📓", url: "https://glaciercold101.github.io/Browney/" },
+      { platform: "Squidley FlashCards", icon: "🎴", url: "https://glaciercold101.github.io/SquidleyFlashCards/" },
+      { platform: "UNO Game Online", icon: "🃏", url: "https://glaciercold101.github.io/UNO-Game/" },
+      { platform: "Folder Sync Mate", icon: "🔄", url: "https://glaciercold101.github.io/Folder-Sync-Mate/" },
+      { platform: "HTML Edit Light", icon: "💻", url: "https://glaciercold101.github.io/HTML-Edit-light/" },
+      { platform: "Falcon Slide Maker", icon: "🎬", url: "https://glaciercold101.github.io/Falcon-Slide-Maker/" },
+      { platform: "Budgie Slides", icon: "🦜", url: "https://glaciercold101.github.io/Falcon-Slide-Maker/budgie-slides/" },
+      { platform: "Salvation Prayer Table", icon: "📿", url: "https://glaciercold101.github.io/Salvation-Prayer-Table-online/" },
+      { platform: "Browney Flyer & Features", icon: "📄", url: "https://glaciercold101.github.io/Browney/flyer/" }
+    ],
+    screenshots: []
   },
   {
     name: "Edit Blight",
@@ -610,17 +691,57 @@ function render(selectedId=''){
     return;
   }
   list.innerHTML = filtered.map(app=>{
-    const [latest,...older] = app.downloads || [];
     const id = 'app-'+slugify(app.name);
+    const isButtons = app.variant === 'buttons';
+    const shots = (app.screenshots||[]).slice(0,6);
+    const shotsHtml = shots.length 
+      ? shots.map(s=>`<div class="shot" onclick="openLightbox('${s}')"><img src="${s}" alt="${app.name}" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove(); this.parentElement.textContent='Image missing'"></div>`).join('')
+      : (isButtons ? '' : `<div class="shot empty">No screenshots yet</div>`);
+    const screensWrap = shotsHtml ? `<div class="screens">${shotsHtml}</div>` : '';
+
+    if(isButtons){
+      // Button-grid variant: no primary download button
+      const btns = (app.downloads||[]).filter(d=>d.url).map(d=>{
+        const icon = d.icon || '🔗';
+        // clean label - remove emoji prefix if already in icon
+        let label = d.platform.replace(/^[^\w\s]+\s*/u,'').trim();
+        // if platform already clean, keep original trimmed without emoji duplication
+        if(!label) label = d.platform;
+        // keep short label for chips
+        return `<a class="chip-btn" href="${d.url}" target="_blank" rel="noopener"><span class="chip-btn-icon">${icon}</span><span class="chip-btn-label">${label}</span></a>`;
+      }).join('');
+      const gridLabel = app.name === 'My Hobbies' ? 'Tap to open hobby' : 'Tap to open website';
+      return `<article class="app-card is-buttons" id="${id}" style="--accent:${app.color}">
+      <div class="app-top">
+        <div class="app-identity">
+          <div class="app-icon-box">${app.icon}</div>
+          <div class="app-name-wrap">
+            <div class="app-name-row">
+              <span class="app-name">${app.name}</span>
+              <span class="version">${app.version||''}</span>
+            </div>
+            <div class="app-desc">${app.description}</div>
+          </div>
+        </div>
+        <div class="app-actions">
+          <button class="icon-btn" data-copy onclick="copyLink('${id}')" title="Copy link">🔗</button>
+        </div>
+      </div>
+      <div class="button-grid-wrap" style="--btn-accent:${app.color}">
+        <div class="button-grid-label"><i></i>${gridLabel} — ${app.downloads.length} links</div>
+        <div class="button-grid">${btns}</div>
+      </div>
+      ${screensWrap}
+    </article>`;
+    }
+
+    // Regular box (default trend)
+    const [latest,...older] = app.downloads || [];
     const hasUrl = latest && latest.url && latest.url !== '#';
     const latestBtn = hasUrl 
       ? `<a class="btn-primary" href="${latest.url}" target="_blank" rel="noopener">↓ ${latest.platform.includes('Latest')?'Download Latest':'Download'}</a>`
       : `<span class="btn-primary disabled">Coming soon</span>`;
     const latestMeta = latest ? latest.platform : 'No file yet';
-    const shots = (app.screenshots||[]).slice(0,6);
-    const shotsHtml = shots.length 
-      ? shots.map(s=>`<div class="shot" onclick="openLightbox('${s}')"><img src="${s}" alt="${app.name}" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove(); this.parentElement.textContent='Image missing'"></div>`).join('')
-      : `<div class="shot empty">No screenshots yet</div>`;
     const olderHtml = older.length 
       ? older.filter(d=>d.url).map(d=>`<a href="${d.url}" target="_blank" rel="noopener">${d.platform}</a>`).join('')
       : '<span class="empty">No previous versions</span>';
@@ -644,7 +765,7 @@ function render(selectedId=''){
         <div class="changelog"><div class="changelog-label">Previous / Other builds</div>${olderHtml}</div>
         <div class="download-col">${latestBtn}<div class="meta-mini">${latestMeta}</div></div>
       </div>
-      <div class="screens">${shotsHtml}</div>
+      ${screensWrap || `<div class="screens"><div class="shot empty">No screenshots yet</div></div>`}
     </article>`;
   }).join('');
 }
